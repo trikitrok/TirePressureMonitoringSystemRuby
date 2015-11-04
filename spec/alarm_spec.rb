@@ -12,7 +12,9 @@ describe Alarm do
   end
 
   it "is off when pressure is inside the safety range" do
-    alarm = FakeAlarm.new(18)
+    sensor = double()
+    allow(sensor).to receive(:pop_next_pressure_psi_value) { 18 }
+    alarm = Alarm.create_alarm(sensor)
 
     alarm.check
 
