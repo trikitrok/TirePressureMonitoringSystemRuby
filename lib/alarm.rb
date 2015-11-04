@@ -15,16 +15,28 @@ class Alarm
   def initialize sensor
     @sensor = sensor
     @alarm_on = false
+    @safety_range = SafetyRange.new(17, 21)
   end
 
   def check
     value = @sensor.sample_value()
-
-    @alarm_on = true if value < LOW_PRESSURE || HIGH_PRESSURE < value
+    @alarm_on = outside_safety_range?(value)
   end
 
   private
 
-  LOW_PRESSURE = 17
-  HIGH_PRESSURE = 21
+  def outside_safety_range? value
+    ! @safety_range.contains?(value)
+  end
+
+  class SafetyRange
+    def initialize lower_threshold, higher_threshold
+      @lower_threshold = lower_threshold
+      @higher_threshold = higher_threshold
+    end
+
+    def contains? value
+      not (value < @lower_threshold || @higher_threshold < value)
+    end
+  end
 end
