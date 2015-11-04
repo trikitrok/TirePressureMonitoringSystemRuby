@@ -1,11 +1,11 @@
 require_relative 'alarm'
 
 # Some code
-alarm = Alarm.create_pressure_alarm
+alarm = Alarm.new
 alarm.check
 puts alarm.alarm_on
 
 # More code
-alarm = Alarm.create_pressure_alarm
+alarm = Alarm.new
 alarm.check
 puts alarm.alarm_on

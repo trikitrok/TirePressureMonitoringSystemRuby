@@ -8,8 +8,8 @@ class Alarm
     new(Sensor.new)
   end
 
-  def initialize sensor
-    @sensor = sensor
+  def initialize *args
+    @sensor = args[0] || Sensor.new
     @alarm_on = false
   end
 
