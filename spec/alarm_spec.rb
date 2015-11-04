@@ -2,7 +2,9 @@ require_relative '../lib/alarm'
 
 describe Alarm do
   it "is on when pressure is too low" do
-    alarm = FakeAlarm.new(10)
+    sensor = double()
+    allow(sensor).to receive(:pop_next_pressure_psi_value) { 10 }
+    alarm = Alarm.create_alarm(sensor)
 
     alarm.check
 

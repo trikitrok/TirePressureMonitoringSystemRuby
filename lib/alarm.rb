@@ -5,7 +5,11 @@ class Alarm
   attr_reader :alarm_on
 
   def self.create_pressure_alarm
-    new(Sensor.new)
+    create_alarm(Sensor.new)
+  end
+
+  def self.create_alarm sensor
+    new(sensor)
   end
 
   def initialize sensor
