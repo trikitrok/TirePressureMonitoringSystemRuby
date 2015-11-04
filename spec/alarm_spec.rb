@@ -18,7 +18,7 @@ describe Alarm do
   end
 
   it "is on when pressure is too high" do
-    alarm = FakeAlarm.new(22)
+    alarm = an_alarm_with_a_sensor_sampling(22)
 
     alarm.check
 
