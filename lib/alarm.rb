@@ -6,17 +6,17 @@ class Alarm
   attr_reader :alarm_on
 
   def self.create_pressure_alarm
-    create_alarm(Sensor.new)
+    create_alarm(Sensor.new, SafetyRange.new(17, 21))
   end
 
-  def self.create_alarm sensor
-    new(sensor)
+  def self.create_alarm sensor, safety_range
+    new(sensor, safety_range)
   end
 
-  def initialize sensor
+  def initialize sensor, safety_range
     @sensor = sensor
     @alarm_on = false
-    @safety_range = SafetyRange.new(17, 21)
+    @safety_range = safety_range
   end
 
   def check

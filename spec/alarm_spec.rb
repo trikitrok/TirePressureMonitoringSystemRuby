@@ -28,6 +28,6 @@ describe Alarm do
   def an_alarm_with_a_sensor_sampling value
     sensor = double()
     allow(sensor).to receive(:sample_value) { value }
-    Alarm.create_alarm(sensor)
+    Alarm.create_alarm(sensor, SafetyRange.new(17, 21))
   end
 end
