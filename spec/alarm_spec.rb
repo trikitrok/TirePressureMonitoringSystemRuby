@@ -31,13 +31,3 @@ describe Alarm do
     Alarm.create_alarm(sensor)
   end
 end
-
-class FakeAlarm < Alarm
-  def initialize value
-    @value = value
-  end
-
-  def sample_pressure_value
-    @value
-  end
-end
