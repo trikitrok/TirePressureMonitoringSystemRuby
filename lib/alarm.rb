@@ -1,4 +1,4 @@
-require_relative './sensor'
+require_relative './pressure_sensor'
 require_relative './safety_range'
 
 class Alarm
@@ -6,7 +6,7 @@ class Alarm
   attr_reader :alarm_on
 
   def self.create_pressure_alarm
-    create_alarm(Sensor.new, SafetyRange.new(17, 21))
+    create_alarm(PressureSensor.new, SafetyRange.new(17, 21))
   end
 
   def self.create_alarm sensor, safety_range
