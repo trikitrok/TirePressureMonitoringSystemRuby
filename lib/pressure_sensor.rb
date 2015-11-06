@@ -1,11 +1,11 @@
-class Sensor
+class PressureSensor
   # The reading of the pressure value from the sensor is simulated in this implementation.
   # Because the focus of the exercise is on the other class.
 
   OFFSET = 16
   private_constant :OFFSET
 
-  def pop_next_pressure_psi_value
+  def sample
     OFFSET + read_sample_pressure()
   end
 
