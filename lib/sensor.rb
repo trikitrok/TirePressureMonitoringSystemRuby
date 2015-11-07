@@ -5,7 +5,7 @@ class Sensor
   OFFSET = 16
   private_constant :OFFSET
 
-  def pop_next_pressure_psi_value
+  def sample_value
     OFFSET + read_sample_pressure()
   end
 
