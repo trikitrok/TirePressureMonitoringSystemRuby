@@ -26,7 +26,7 @@ describe Alarm do
   end
 
   it "remains on after being activated" do
-    alarm = FakeAlarm.new(25, 19)
+    alarm = an_alarm_with_a_sensor_sampling(25, 19)
     alarm.check
 
     alarm.check
