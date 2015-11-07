@@ -25,13 +25,24 @@ describe Alarm do
     expect(alarm.alarm_on).to be_truthy
   end
 
+  it "remains on after being activated" do
+    alarm = FakeAlarm.new(25, 19)
+    alarm.check
+
+    alarm.check
+    expect(alarm.alarm_on).to be_truthy
+  end
+
   class FakeAlarm < Alarm
-    def initialize value
-      @value = value
+    def initialize *values
+      @values = values
+      @index = 0
     end
 
     def sample_value
-      @value
+      value = @values[@index]
+      @index += 1
+      value
     end
   end
 end
