@@ -10,7 +10,7 @@ describe Alarm do
   end
 
   it "is off when pressure is inside safety range" do
-    alarm = FakeAlarm.new(19)
+    alarm = an_alarm_with_a_sensor_sampling(19)
 
     alarm.check
 
