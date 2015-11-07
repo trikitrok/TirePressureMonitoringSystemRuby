@@ -2,7 +2,7 @@ require_relative '../lib/alarm'
 require_relative '../lib/safety_range'
 
 describe Alarm do
-  it "is on when pressure is too low" do
+  it "is on when the sampled value is too low" do
     alarm = an_alarm.
       with_sensor(that_samples(8)).
       and_with_safety_range(17, 21).build
@@ -12,7 +12,7 @@ describe Alarm do
     expect(alarm.alarm_on).to be_truthy
   end
 
-  it "is off when pressure is inside safety range" do
+  it "is off when the sampled value is inside the safety range" do
     alarm = an_alarm.
       with_sensor(that_samples(19)).
       and_with_safety_range(17, 21).build
@@ -22,7 +22,7 @@ describe Alarm do
     expect(alarm.alarm_on).to be_falsy
   end
 
-  it "is on when pressure is too high" do
+  it "is on when the sampled value is too high" do
     alarm = an_alarm.
       with_sensor(that_samples(25)).
       and_with_safety_range(17, 21).build
