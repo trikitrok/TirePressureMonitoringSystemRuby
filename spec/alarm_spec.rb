@@ -1,4 +1,5 @@
 require_relative '../lib/alarm'
+require_relative '../lib/safety_range'
 
 describe Alarm do
   it "is on when pressure is too low" do
@@ -36,6 +37,6 @@ describe Alarm do
   def an_alarm_with_a_sensor_sampling(*values)
     sensor = double()
     allow(sensor).to receive(:sample_value).and_return(*values)
-    alarm = Alarm.new(sensor)
+    alarm = Alarm.new(sensor, SafetyRange.new(17, 21))
   end
 end
