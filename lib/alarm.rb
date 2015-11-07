@@ -14,12 +14,18 @@ class Alarm
   end
 
   def check
-    value = sample_value()
-
-    @alarm_on = true if value < LOW_PRESSURE || HIGH_PRESSURE < value
+    activate if unsafe?(sample_value)
   end
 
   private
+
+  def activate
+    @alarm_on = true
+  end
+
+  def unsafe? value
+    value < LOW_PRESSURE || HIGH_PRESSURE < value
+  end
 
   def sample_value
     @sensor.sample_value()
