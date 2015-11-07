@@ -5,6 +5,6 @@ class SafetyRange
   end
 
   def contains? value
-    not (value < @lower_threshold || @higher_threshold < value)
+    @lower_threshold <= value && value <= @higher_threshold
   end
 end
