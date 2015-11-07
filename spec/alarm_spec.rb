@@ -3,7 +3,9 @@ require_relative '../lib/safety_range'
 
 describe Alarm do
   it "is on when pressure is too low" do
-    alarm = an_alarm_with_a_sensor_sampling(8)
+    alarm = an_alarm.
+      with_sensor(that_samples(8)).
+      and_with_safety_range(17, 21).build
 
     alarm.check
 
@@ -11,7 +13,9 @@ describe Alarm do
   end
 
   it "is off when pressure is inside safety range" do
-    alarm = an_alarm_with_a_sensor_sampling(19)
+    alarm = an_alarm.
+      with_sensor(that_samples(19)).
+      and_with_safety_range(17, 21).build
 
     alarm.check
 
@@ -19,7 +23,9 @@ describe Alarm do
   end
 
   it "is on when pressure is too high" do
-    alarm = an_alarm_with_a_sensor_sampling(25)
+    alarm = an_alarm.
+      with_sensor(that_samples(25)).
+      and_with_safety_range(17, 21).build
 
     alarm.check
 
@@ -27,16 +33,43 @@ describe Alarm do
   end
 
   it "remains on after being activated" do
-    alarm = an_alarm_with_a_sensor_sampling(25, 19)
+    alarm = an_alarm.
+      with_sensor(that_samples(25, 19)).
+      and_with_safety_range(17, 21).build
     alarm.check
 
     alarm.check
     expect(alarm.alarm_on).to be_truthy
   end
 
-  def an_alarm_with_a_sensor_sampling(*values)
+  def that_samples *values
     sensor = double()
     allow(sensor).to receive(:sample_value).and_return(*values)
-    alarm = Alarm.new(sensor, SafetyRange.new(17, 21))
+    sensor
+  end
+
+  def an_alarm
+    AlarmBuilder.new
+  end
+
+  class AlarmBuilder
+    def initialize
+      self
+    end
+
+    def with_sensor sensor
+      @sensor = sensor
+      self
+    end
+
+    def and_with_safety_range lower_threshold, higher_threshold
+      @lower_threshold = lower_threshold
+      @higher_threshold = higher_threshold
+      self
+    end
+
+    def build
+      Alarm.new(@sensor, SafetyRange.new(@lower_threshold, @higher_threshold))
+    end
   end
 end
