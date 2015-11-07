@@ -4,8 +4,8 @@ class Alarm
 
   attr_reader :alarm_on
 
-  def initialize
-    @sensor = Sensor.new
+  def initialize *args
+    @sensor = args[0] || Sensor.new
     @alarm_on = false
   end
 
