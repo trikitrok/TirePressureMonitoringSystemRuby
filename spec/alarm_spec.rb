@@ -38,17 +38,4 @@ describe Alarm do
     allow(sensor).to receive(:pop_next_pressure_psi_value).and_return(*values)
     alarm = Alarm.new(sensor)
   end
-
-  class FakeAlarm < Alarm
-    def initialize *values
-      @values = values
-      @index = 0
-    end
-
-    def sample_value
-      value = @values[@index]
-      @index += 1
-      value
-    end
-  end
 end
