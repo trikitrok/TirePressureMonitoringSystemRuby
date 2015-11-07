@@ -17,6 +17,14 @@ describe Alarm do
     expect(alarm.alarm_on).to be_falsy
   end
 
+  it "is on when pressure is too high" do
+    alarm = FakeAlarm.new(25)
+
+    alarm.check
+
+    expect(alarm.alarm_on).to be_truthy
+  end
+
   class FakeAlarm < Alarm
     def initialize value
       @value = value
