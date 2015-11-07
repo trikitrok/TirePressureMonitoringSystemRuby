@@ -33,9 +33,9 @@ describe Alarm do
     expect(alarm.alarm_on).to be_truthy
   end
 
-  def an_alarm_with_a_sensor_sampling(value)
+  def an_alarm_with_a_sensor_sampling(*values)
     sensor = double()
-    allow(sensor).to receive(:pop_next_pressure_psi_value).and_return(value)
+    allow(sensor).to receive(:pop_next_pressure_psi_value).and_return(*values)
     alarm = Alarm.new(sensor)
   end
 
