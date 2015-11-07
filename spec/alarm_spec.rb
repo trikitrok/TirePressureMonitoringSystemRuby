@@ -2,9 +2,7 @@ require_relative '../lib/alarm'
 
 describe Alarm do
   it "is on when pressure is too low" do
-    sensor = double()
-    allow(sensor).to receive(:pop_next_pressure_psi_value).and_return(8)
-    alarm = Alarm.new(sensor)
+    alarm = an_alarm_with_a_sensor_sampling(8)
 
     alarm.check
 
@@ -33,6 +31,12 @@ describe Alarm do
 
     alarm.check
     expect(alarm.alarm_on).to be_truthy
+  end
+
+  def an_alarm_with_a_sensor_sampling(value)
+    sensor = double()
+    allow(sensor).to receive(:pop_next_pressure_psi_value).and_return(value)
+    alarm = Alarm.new(sensor)
   end
 
   class FakeAlarm < Alarm
